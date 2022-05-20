@@ -1,55 +1,67 @@
 package main
+
 import (
-    "fmt"
-    "math/rand"
-    "time"
+	"fmt"
+	"math/rand"
+	"time"
 )
 
 func main() {
-    var choice string
-    fmt.Println("Hey, welcome to Rock Paper Scissor game!")
-    fmt.Println("Press p to play or q to quit")
-    fmt.Scanln(&choice)
-    i := 69
-    if choice == "p" {
-        var sel string
-        fmt.Println("Great! Choose p for paper, r for rock and s for scissor or other keys to quit")
-        for i > 14 {
-            fmt.Scanln(&sel)
-            rand.Seed(time.Now().UnixNano())
-            randint := rand.Intn(4 - 1) + 1 // 1 = Paper, 2 = Scissor, 3 = Rock
-            if sel == "p" {
-                if randint == 1 {
-                    fmt.Println("It's a tie, computer also chose paper!")
-                } else if randint == 2 {
-                    fmt.Println("Oh! you lost, computer chose scissor")
-                } else {
-                    fmt.Println("Congrats! You won, computer chose rock")
-                }
-            } else if sel == "r" {
-                if randint == 3 {
-                    fmt.Println("It's a tie, computer also chose rock!")
-                } else if randint == 1 {
-                    fmt.Println("Oh! you lost, computer chose paper")
-                } else {
-                    fmt.Println("Congrats! You won, computer chose scissor")
-                }
-            } else if sel == "s" {
-                if randint == 2 {
-                    fmt.Println("It's a tie, computer also chose scissor!")
-                } else if randint == 3 {
-                    fmt.Println("Oh! you lost, computer chose rock")
-                } else {
-                    fmt.Println("Congrats! You won, computer chose paper")
-                }
-            } else {
-                fmt.Println("Thanks for using our service! will see you soon :)")
-                break
-            }
-        }
-    } else if choice == "q" {
-        fmt.Println("Thanks for using our service, hope to see you soon :)")
-    } else {
-        fmt.Println("Wrong choice :) try again!")
-    }
+	fmt.Printf("Welcome to my game!\n")
+	i := 1
+	var user_score int = 0
+	var comp_score int = 0
+	for i > 0 { // For infinite loop
+		var user_input int
+		fmt.Println("Enter a choice (rock[0], paper[1], scissors[2]): ")
+		fmt.Scanln(&user_input)
+		rand.Seed(time.Now().UnixNano())
+		selection := rand.Intn(3-0) + 0
+		if user_input == selection {
+			fmt.Printf("Both players selected %v. It's a tie!\n", user_input)
+		} else if user_input == 0 {
+			if selection == 2 {
+				user_score += 1
+				fmt.Println("Rock smashes scissors! You win!")
+			} else {
+				comp_score += 1
+				fmt.Println("Paper covers rock! You lose.")
+			}
+		} else if user_input == 1 {
+			if selection == 0 {
+				user_score += 1
+				fmt.Println("Paper covers rock! You win!")
+			} else {
+				comp_score += 1
+				fmt.Println("Scissors cuts paper! You lose.")
+			}
+		} else if user_input == 2 {
+			if selection == 1 {
+				user_score += 1
+				fmt.Println("Scissors cuts paper! You win!")
+			} else {
+				comp_score += 1
+				fmt.Println("Rock smashes scissors! You lose.")
+			}
+		} else {
+			fmt.Println(("Invalid input! try again"))
+		}
+		var play_again string
+		fmt.Println("Play again? (y/n): ")
+		fmt.Scanln(&play_again)
+		if play_again != "y" {
+			if user_score == comp_score {
+				fmt.Printf("It's a tie! you both scored %v\n", user_score)
+
+			} else if user_score > comp_score {
+				fmt.Printf("Congratulations! You won\nyour score - %v\ncomputer's score - %v\n", user_score, comp_score)
+
+			} else {
+				fmt.Printf("Hard luck! You lose\nyour score - %v\ncomputer's score - %v\n", user_score, comp_score)
+			}
+			fmt.Println("Thanks for using our game :D, hope to see you soon")
+			break
+		}
+
+	}
 }
