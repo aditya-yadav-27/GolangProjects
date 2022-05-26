@@ -8,10 +8,9 @@ import (
 
 func main() {
 	fmt.Printf("Welcome to my game!\n")
-	i := 1
 	var user_score int = 0
 	var comp_score int = 0
-	for i > 0 { // For infinite loop
+	for { // For infinite loop
 		var user_input int
 		fmt.Println("Enter a choice (rock[0], paper[1], scissors[2]): ")
 		fmt.Scanln(&user_input)
